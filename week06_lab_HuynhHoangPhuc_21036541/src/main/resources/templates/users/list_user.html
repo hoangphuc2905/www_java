@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User List</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+</style>
+<h1>Danh Sách Người Dùng</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Họ và tên</th>
+        <th>Số Điện Thoại</th>
+        <th>Email</th>
+        <th>Giới Thiệu</th>
+        <th>Profile</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.getFullName()}"></td>
+        <td th:text="${user.mobile}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.intro}"></td>
+        <td th:text="${user.profile}"></td>
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
