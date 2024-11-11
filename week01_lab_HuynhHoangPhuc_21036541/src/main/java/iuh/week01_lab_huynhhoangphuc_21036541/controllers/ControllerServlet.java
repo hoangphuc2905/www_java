@@ -40,7 +40,6 @@ public class ControllerServlet extends HttpServlet {
       String action = req.getParameter("action");
       HttpSession session = req.getSession();
       switch (action.toLowerCase()) {
-         // Account
          case "login" -> {
             String phone = req.getParameter("phone");
             String password = req.getParameter("password");
@@ -109,7 +108,6 @@ public class ControllerServlet extends HttpServlet {
       String action = req.getParameter("action");
       HttpSession session = req.getSession();
       switch (action) {
-         // Account
          case "add-account" -> {
             String fullName = req.getParameter("full_name");
             String password = req.getParameter("password");
@@ -174,7 +172,6 @@ public class ControllerServlet extends HttpServlet {
             }
          }
 
-         // Role
          case "add-role" -> {
             String roleId = req.getParameter("role_id");
             String roleName = req.getParameter("role_name");
