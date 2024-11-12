@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Controller
@@ -25,20 +27,47 @@ public class UserController {
 
     @PostMapping
     public User createUser(@RequestBody User user) {
+        // Mã hóa mật khẩu trước khi lưu
+        user.setPasswordHash(hashPasswordMD5(user.getPasswordHash()));
         return userRepository.save(user);
     }
 
+    private String hashPasswordMD5(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] hash = md.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
 
-    // Login
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "users/login";
+    }
+
+    // Pass: password123
     @PostMapping("/login")
-    public String login(@RequestBody User user) {
+    public String login(@RequestParam("mobile") String mobile,
+                        @RequestParam("password") String password, Model model) {
         List<User> users = userRepository.findAll();
+
         for (User u : users) {
-            if (u.getMobile().equals(user.getMobile()) && u.getPasswordHash().equals(user.getPasswordHash())) {
-                return "users/login";
+            if (u.getMobile().equals(mobile) && u.getPasswordHash().equals(hashPasswordMD5(password))) {
+                return "redirect:/users";
             }
         }
+
+        model.addAttribute("error", "Invalid mobile number or password");
         return "users/login";
     }
 }
-
