@@ -3,13 +3,16 @@ package iuh.week06_lab_huynhhoangphuc_21036541.controller;
 import iuh.week06_lab_huynhhoangphuc_21036541.models.User;
 import iuh.week06_lab_huynhhoangphuc_21036541.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/users")
@@ -17,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("")
     public String listUsers(Model model) {
@@ -27,7 +33,6 @@ public class UserController {
 
     @PostMapping
     public User createUser(@RequestBody User user) {
-        // Mã hóa mật khẩu trước khi lưu
         user.setPasswordHash(hashPasswordMD5(user.getPasswordHash()));
         return userRepository.save(user);
     }
@@ -55,7 +60,6 @@ public class UserController {
         return "users/login";
     }
 
-    // Pass: password123
     @PostMapping("/login")
     public String login(@RequestParam("mobile") String mobile,
                         @RequestParam("password") String password, Model model) {
@@ -63,6 +67,9 @@ public class UserController {
 
         for (User u : users) {
             if (u.getMobile().equals(mobile) && u.getPasswordHash().equals(hashPasswordMD5(password))) {
+                u.setLastLogin(Instant.now());
+                userRepository.save(u);
+
                 return "redirect:/users";
             }
         }
@@ -70,4 +77,29 @@ public class UserController {
         model.addAttribute("error", "Invalid mobile number or password");
         return "users/login";
     }
+
+
+    @GetMapping("/register")
+    public String showRegisterForm(Model model) {
+        model.addAttribute("user", new User());
+        return "users/register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute User user, Model model) {
+        if (userRepository.existsByMobile(user.getMobile())) {
+            model.addAttribute("error", "Mobile number already exists");
+            return "users/register";
+        }
+
+        user.setRegisteredAt(Instant.now());
+        user.setPasswordHash(hashPasswordMD5(user.getPasswordHash()));
+        user.setLastLogin(null);
+        userRepository.save(user);
+
+        model.addAttribute("success", "Registration successful! Please log in.");
+
+        return "redirect:/users/login";
+    }
+
 }

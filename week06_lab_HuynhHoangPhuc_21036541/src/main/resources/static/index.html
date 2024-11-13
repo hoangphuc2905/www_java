@@ -1,23 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Blog</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <title>Login</title>
 </head>
 <body>
-<h1>Welcome to the Blog</h1>
-<h2>Recent Posts</h2>
-<ul>
-    <li th:each="post : ${posts}">
-        <h3 th:text="${post.title}"></h3>
-        <p th:text="${post.summary}"></p>
-        <a th:href="@{/post/{id}(id=${post.id})}">Read More</a>
-    </li>
-</ul>
-
-<a href="/users">Users</a>
-<a href="/posts">Posts</a>
-<a href="/users/login">Login</a>
-
+<h1>Login</h1>
+    <a href="/users">Users</a>
+    <a href="/posts">Posts</a>
+    <a href="/users/login">Login</a>
+    <a href="/users/register">Register</a>
 </body>
 </html>

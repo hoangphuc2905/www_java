@@ -14,7 +14,12 @@
 
     <button type="submit">Login</button>
 
-    <p th:if="${error != null}" style="color:red;" th:text="${error}"></p>
+    <p th:text="${error}" style="color: red;"></p>
+
+    <a href="/users">Users</a>
+    <a href="/posts">Posts</a>
+    <a href="/users/login">Login</a>
+    <a href="/users/register">Register</a>
 </form>
 </body>
 </html>
