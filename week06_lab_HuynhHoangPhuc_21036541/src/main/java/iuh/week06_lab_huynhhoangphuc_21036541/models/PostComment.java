@@ -51,7 +51,6 @@ public class PostComment {
     @Column(name = "content")
     private String content;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<PostComment> postComments = new LinkedHashSet<>();
-
 }

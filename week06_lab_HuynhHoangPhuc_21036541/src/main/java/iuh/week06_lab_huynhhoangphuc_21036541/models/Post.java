@@ -1,5 +1,7 @@
 package iuh.week06_lab_huynhhoangphuc_21036541.models;
 
+import iuh.week06_lab_huynhhoangphuc_21036541.models.PostComment;
+import iuh.week06_lab_huynhhoangphuc_21036541.models.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -8,6 +10,7 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -62,10 +65,17 @@ public class Post {
     @Column(name = "content")
     private String content;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Post> posts = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "post")
-    private Set<PostComment> postComments = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PostComment> comments = new HashSet<>();
+
+    public void setComments(Set<PostComment> comments) {
+        this.comments = comments;
+    }
+
+
+
 
 }

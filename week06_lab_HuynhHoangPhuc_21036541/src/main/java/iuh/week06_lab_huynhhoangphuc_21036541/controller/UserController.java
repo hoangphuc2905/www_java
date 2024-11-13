@@ -70,7 +70,8 @@ public class UserController {
                 u.setLastLogin(Instant.now());
                 userRepository.save(u);
 
-                return "redirect:/users";
+
+                return "redirect:/posts";
             }
         }
 
