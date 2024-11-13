@@ -3,82 +3,104 @@
 <head>
     <title>Post List</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .post {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .post-title {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .post-meta {
+            font-size: 0.9em;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .post-summary {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .post-content {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .comment {
+            background-color: #f4f4f4;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 5px solid #3498db;
+        }
+
+        .comment-author {
+            font-weight: bold;
+        }
+
+        .comment-content {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .published-yes {
+            color: green;
+        }
+
+        .published-no {
+            color: red;
+        }
+
+        .date-format {
+            font-style: italic;
+        }
+
+        /* Thêm phần CSS cho nút hình tròn góc phải */
+        .circle-link {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .circle-link:hover {
+            background-color: #2980b9;
+        }
+    </style>
 </head>
 <body>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background-color: #f9f9f9;
-    }
-
-    h1 {
-        color: #333;
-        text-align: center;
-        margin-bottom: 40px;
-    }
-
-    .post {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
-    }
-
-    .post-title {
-        font-size: 2em;
-        color: #333;
-        margin-bottom: 10px;
-    }
-
-    .post-meta {
-        font-size: 0.9em;
-        color: #888;
-        margin-bottom: 15px;
-    }
-
-    .post-summary {
-        font-size: 1.1em;
-        color: #555;
-        margin-bottom: 20px;
-    }
-
-    .post-content {
-        font-size: 1em;
-        line-height: 1.6;
-        color: #333;
-    }
-
-    .comment {
-        background-color: #f4f4f4;
-        margin-top: 15px;
-        padding: 10px;
-        border-radius: 5px;
-        border-left: 5px solid #3498db;
-    }
-
-    .comment-author {
-        font-weight: bold;
-    }
-
-    .comment-content {
-        font-size: 0.9em;
-        color: #555;
-    }
-
-    .published-yes {
-        color: green;
-    }
-
-    .published-no {
-        color: red;
-    }
-
-    .date-format {
-        font-style: italic;
-    }
-</style>
 
 <h1>Blog Posts</h1>
 
@@ -101,7 +123,10 @@
     </div>
 </div>
 
-<a th:if="${loggedInUser != null}" th:href="@{/posts/user/{id}(id=${loggedInUser.id})}">Your Posts</a>
+<a th:if="${loggedInUser != null}"
+   th:href="@{/posts/user/{id}(id=${loggedInUser.id})}"
+   class="circle-link"
+   th:text="${loggedInUser.getFullName()}"></a>
 
 </body>
 </html>
