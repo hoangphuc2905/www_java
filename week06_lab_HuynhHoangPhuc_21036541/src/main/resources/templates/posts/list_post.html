@@ -101,6 +101,7 @@
     </div>
 </div>
 
+<a th:if="${loggedInUser != null}" th:href="@{/posts/user/{id}(id=${loggedInUser.id})}">Your Posts</a>
 
 </body>
 </html>

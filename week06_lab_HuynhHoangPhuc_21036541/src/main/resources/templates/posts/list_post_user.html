@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Your Posts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .post {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .post h2 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .post-meta {
+            font-size: 0.9em;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .post-summary {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .post-content {
+            font-size: 1em;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .comment {
+            background-color: #f9f9f9;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+
+        .comment p {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .action-links {
+            margin-top: 15px;
+        }
+
+        .action-links a {
+            text-decoration: none;
+            color: #3498db;
+            margin-right: 15px;
+            font-size: 1em;
+        }
+
+        .action-links a:hover {
+            text-decoration: underline;
+        }
+
+        .create-post-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        .create-post-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Your Blog Posts</h1>
+
+    <div th:each="post : ${posts}" class="post">
+        <h2 th:text="${post.title}"></h2>
+
+        <div class="post-meta">
+            <span th:text="${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+        </div>
+
+        <div class="post-summary" th:text="${post.summary}"></div>
+        <div class="post-content" th:text="${post.content}"></div>
+
+        <div th:each="comment : ${post.comments}" class="comment">
+            <p th:text="${comment.content}"></p>
+        </div>
+
+        <div class="action-links">
+            <a th:href="@{/posts/{postId}/edit(postId=${post.id})}">Edit</a> |
+            <a th:href="@{/posts/{postId}/delete(postId=${post.id})}" onclick="return confirm('Are you sure?')">Delete</a>
+        </div>
+    </div>
+
+    <a href="/posts/new" class="create-post-btn">Create New Post</a>
+</div>
+
+</body>
+</html>

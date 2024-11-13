@@ -2,6 +2,7 @@ package iuh.week06_lab_huynhhoangphuc_21036541.controller;
 
 import iuh.week06_lab_huynhhoangphuc_21036541.models.User;
 import iuh.week06_lab_huynhhoangphuc_21036541.repositories.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -62,7 +63,9 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestParam("mobile") String mobile,
-                        @RequestParam("password") String password, Model model) {
+                        @RequestParam("password") String password,
+                        HttpSession session,
+                        Model model) {
         List<User> users = userRepository.findAll();
 
         for (User u : users) {
@@ -70,6 +73,7 @@ public class UserController {
                 u.setLastLogin(Instant.now());
                 userRepository.save(u);
 
+                session.setAttribute("userId", u.getId());
 
                 return "redirect:/posts";
             }
