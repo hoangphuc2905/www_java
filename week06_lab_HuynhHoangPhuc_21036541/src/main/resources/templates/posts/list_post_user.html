@@ -99,12 +99,29 @@
         .create-post-btn:hover {
             background-color: #2980b9;
         }
+
+        .circle-link {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>Your Blog Posts</h1>
+
+    <a th:href="@{/users/profile}" class="circle-link">Update Profile</a>
 
     <div th:each="post : ${posts}" class="post">
         <h2 th:text="${post.title}"></h2>
@@ -121,12 +138,12 @@
         </div>
 
         <div class="action-links">
-            <a th:href="@{/posts/{postId}/edit(postId=${post.id})}">Edit</a> |
+            <a th:href="@{/posts/update/{postId}(postId=${post.id})}">Edit</a>
             <a th:href="@{/posts/{postId}/delete(postId=${post.id})}" onclick="return confirm('Are you sure?')">Delete</a>
         </div>
     </div>
 
-    <a href="/posts/new" class="create-post-btn">Create New Post</a>
+    <a th:href="@{/posts/create}" class="create-post-btn">Create a new post</a>
 </div>
 
 </body>

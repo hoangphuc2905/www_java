@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
 
@@ -70,4 +71,69 @@ public class PostController {
         model.addAttribute("posts", posts);
         return "posts/list_post_user";
     }
+
+    @GetMapping("/create")
+    public String showCreateForm(Model model) {
+        model.addAttribute("post", new Post());
+        return "posts/add_post";
+    }
+
+    @PostMapping("/create")
+    public String createPost(@ModelAttribute Post post, HttpSession session) {
+        User loggedInUser = getLoggedInUser(session);
+        post.setAuthor(loggedInUser);
+        post.setCreatedAt(Instant.now());
+        post.setUpdatedAt(null);
+        post.setPublishedAt(Instant.now());
+        postService.createPost(post);
+        return "redirect:/posts";
+    }
+
+    // Detail post
+    @GetMapping("/{id}")
+    public String showPost(@PathVariable Long id, Model model) {
+        Post post = postService.getPostById(id).orElse(null);
+        if (post == null) {
+            return "redirect:/posts";
+        }
+
+        User author = post.getAuthor();
+        List<PostComment> comments = postService.getCommentsByPost(post);
+        post.setAuthor(author);
+        post.setComments(new HashSet<>(comments));
+
+        model.addAttribute("post", post);
+        return "posts/detail_post";
+    }
+
+    @GetMapping("/update/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Post post = postService.getPostById(id).orElse(null);
+        if (post == null) {
+            return "redirect:/posts";
+        }
+
+        model.addAttribute("post", post);
+        return "posts/update_post";
+    }
+
+    @PostMapping("/update/{id}")
+    public String editPost(@PathVariable Long id, @ModelAttribute Post post) {
+        Post existingPost = postService.getPostById(id).orElse(null);
+        if (existingPost == null) {
+            return "redirect:/posts";
+        }
+
+        existingPost.setTitle(post.getTitle());
+        existingPost.setMetaTitle(post.getMetaTitle());
+        existingPost.setSummary(post.getSummary());
+        existingPost.setContent(post.getContent());
+        existingPost.setUpdatedAt(Instant.now());
+        postService.updatePost(id, existingPost);
+        return "redirect:/posts";
+    }
+
+
+
+
 }

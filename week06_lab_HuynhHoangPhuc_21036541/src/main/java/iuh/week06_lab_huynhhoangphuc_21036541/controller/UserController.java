@@ -83,6 +83,12 @@ public class UserController {
         return "users/login";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("userId");
+        return "redirect:/users/login";
+    }
+
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
@@ -105,6 +111,47 @@ public class UserController {
         model.addAttribute("success", "Registration successful! Please log in.");
 
         return "redirect:/users/login";
+    }
+
+    @GetMapping("/profile")
+    public String showProfile(HttpSession session, Model model) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/users/login";
+        }
+
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) {
+            return "redirect:/users/login";
+        }
+
+        model.addAttribute("user", user.get());
+        return "users/profile";
+    }
+
+    @PostMapping("/profile")
+    public String updateProfile(@ModelAttribute User updatedUser, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/users/login";
+        }
+
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) {
+            return "redirect:/users/login";
+        }
+
+        User u = user.get();
+        u.setFirstName(updatedUser.getFirstName());
+        u.setMiddleName(updatedUser.getMiddleName());
+        u.setLastName(updatedUser.getLastName());
+        u.setEmail(updatedUser.getEmail());
+        u.setIntro(updatedUser.getIntro());
+        u.setProfile(updatedUser.getProfile());
+
+        userRepository.save(u);
+
+        return "redirect:/users/profile";
     }
 
 }

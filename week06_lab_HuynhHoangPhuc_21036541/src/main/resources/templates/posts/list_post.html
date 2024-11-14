@@ -98,11 +98,54 @@
         .circle-link:hover {
             background-color: #2980b9;
         }
+
+        .create-post-btn {
+            position: absolute;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            top: 0;
+            left: 50px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .create-post-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .back-link {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-link:hover {
+            background-color: #2980b9;
+        }
     </style>
 </head>
 <body>
 
 <h1>Blog Posts</h1>
+
+<div class="container">
+    <a th:if="${loggedInUser != null}"
+       th:href="@{/posts/create}"
+       class="create-post-btn">Create a new post</a>
+</div>
+
 
 <div th:each="post : ${posts}" class="post">
     <h2 class="post-title" th:text="${post.title}"></h2>
@@ -121,12 +164,24 @@
     <div th:each="comment : ${post.comments}" class="comment">
         <div class="comment-content" th:text="${comment.content}"></div>
     </div>
+
+    <a th:if="${loggedInUser != null}"
+       th:href="@{/posts/{id}(id=${post.id})}"
+       class="back-link">View Post</a>
 </div>
+
+
 
 <a th:if="${loggedInUser != null}"
    th:href="@{/posts/user/{id}(id=${loggedInUser.id})}"
    class="circle-link"
    th:text="${loggedInUser.getFullName()}"></a>
+
+<a th:if="${loggedInUser != null}"
+   th:href="@{/users/logout}"
+   class="circle-link"
+   style="top: 80px;"
+   th:text="Logout"></a>
 
 </body>
 </html>
