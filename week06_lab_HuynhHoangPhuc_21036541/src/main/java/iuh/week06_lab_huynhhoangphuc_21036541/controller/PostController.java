@@ -133,6 +133,27 @@ public class PostController {
         return "redirect:/posts";
     }
 
+    @PostMapping("/createComment/{id}")
+    public String createComment(@PathVariable Long id, @RequestParam("content") String content, @RequestParam("title") String title, HttpSession session) {
+        Post post = postService.getPostById(id).orElse(null);
+        if (post == null) {
+            return "redirect:/posts";
+        }
+
+        PostComment comment = new PostComment();
+        comment.setPost(post);
+        comment.setParent(null);
+        comment.setPublished(true);
+        comment.setTitle(title);
+        comment.setContent(content);
+        comment.setCreatedAt(Instant.now());
+        comment.setPublishedAt(Instant.now());
+        postService.saveComment(comment);
+        return "posts/list_post";
+    }
+
+
+
 
 
 

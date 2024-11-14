@@ -3,35 +3,135 @@
 <head>
   <meta charset="UTF-8">
   <title>Register</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+      font-size: 2.2em;
+      margin-bottom: 20px;
+    }
+
+    .register-container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+      box-sizing: border-box;
+    }
+
+    .register-container label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 1.1em;
+      color: #555;
+    }
+
+    .register-container input[type="text"],
+    .register-container input[type="email"],
+    .register-container input[type="password"],
+    .register-container textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 18px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 1.1em;
+      color: #555;
+    }
+
+    .register-container button {
+      background-color: #3498db;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.1em;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .register-container button:hover {
+      background-color: #2980b9;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 0.9em;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .login-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.1em;
+    }
+
+    .login-link a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-<h1>Register</h1>
-<form action="#" th:action="@{/users/register}" th:object="${user}" method="post">
-  <label for="firstName">First Name:</label>
-  <input type="text" id="firstName" th:field="*{firstName}" required>
-  <br>
-  <label for="middleName">Middle Name:</label>
-  <input type="text" id="middleName" th:field="*{middleName}">
-  <br>
-  <label for="lastName">Last Name:</label>
-  <input type="text" id="lastName" th:field="*{lastName}" required>
-  <br>
-  <label for="mobile">Mobile:</label>
-  <input type="text" id="mobile" th:field="*{mobile}" required>
-  <br>
-  <label for="email">Email:</label>
-  <input type="email" id="email" th:field="*{email}" required>
-  <br>
-  <label for="password">Password:</label>
-  <input type="password" id="password" th:field="*{passwordHash}" required>
-  <br>
-  <label for="intro">Intro:</label>
-  <textarea id="intro" th:field="*{intro}"></textarea>
-  <br>
-  <label for="profile">Profile:</label>
-  <textarea id="profile" th:field="*{profile}"></textarea>
-  <br>
-  <button type="submit">Register</button>
-</form>
+<div class="register-container">
+  <h1>Register</h1>
+  <form action="#" th:action="@{/users/register}" th:object="${user}" method="post">
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" th:field="*{firstName}" required>
+
+    <label for="middleName">Middle Name:</label>
+    <input type="text" id="middleName" th:field="*{middleName}">
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" th:field="*{lastName}" required>
+
+    <label for="mobile">Mobile:</label>
+    <input type="text" id="mobile" th:field="*{mobile}" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" th:field="*{email}" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" th:field="*{passwordHash}" required>
+
+    <label for="intro">Intro:</label>
+    <textarea id="intro" th:field="*{intro}"></textarea>
+
+    <label for="profile">Profile:</label>
+    <textarea id="profile" th:field="*{profile}"></textarea>
+
+    <button type="submit">Register</button>
+
+    <p th:text="${error}" class="error-message"></p>
+
+    <div class="login-link">
+      <span>Already have an account?</span>
+      <a href="/users/login">Login</a>
+    </div>
+  </form>
+</div>
 </body>
 </html>

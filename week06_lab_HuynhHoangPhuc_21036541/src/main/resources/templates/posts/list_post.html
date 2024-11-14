@@ -5,40 +5,74 @@
     <link rel="stylesheet" href="/css/styles.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f9f9f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
         }
 
         h1 {
-            color: #333;
+            color: #2c3e50;
             text-align: center;
-            margin-bottom: 40px;
+            margin-top: 50px;
+            font-size: 36px;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .create-post-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 20px 0;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .create-post-btn:hover {
+            background-color: #2980b9;
         }
 
         .post {
-            background-color: #fff;
+            background-color: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
 
         .post-title {
-            font-size: 2em;
-            color: #333;
+            font-size: 2.5em;
+            color: #2c3e50;
             margin-bottom: 10px;
+            font-weight: 700;
         }
 
         .post-meta {
             font-size: 0.9em;
-            color: #888;
-            margin-bottom: 15px;
+            color: #7f8c8d;
+            margin-bottom: 20px;
         }
 
         .post-summary {
-            font-size: 1.1em;
-            color: #555;
+            font-size: 1.2em;
+            color: #34495e;
             margin-bottom: 20px;
         }
 
@@ -46,94 +80,136 @@
             font-size: 1em;
             line-height: 1.6;
             color: #333;
+            margin-bottom: 30px;
         }
 
         .comment {
-            background-color: #f4f4f4;
-            margin-top: 15px;
-            padding: 10px;
+            background-color: #ecf0f1;
+            margin-top: 20px;
+            padding: 15px;
             border-radius: 5px;
             border-left: 5px solid #3498db;
         }
 
         .comment-author {
             font-weight: bold;
+            color: #2c3e50;
         }
 
         .comment-content {
-            font-size: 0.9em;
-            color: #555;
+            font-size: 0.95em;
+            color: #7f8c8d;
         }
 
         .published-yes {
-            color: green;
+            color: #27ae60;
         }
 
         .published-no {
-            color: red;
+            color: #e74c3c;
         }
 
         .date-format {
             font-style: italic;
+            color: #bdc3c7;
         }
 
-        /* Thêm phần CSS cho nút hình tròn góc phải */
+        /* Nút tròn góc phải */
         .circle-link {
             position: fixed;
             top: 20px;
             right: 20px;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             background-color: #3498db;
             color: white;
             border-radius: 50%;
             text-align: center;
-            line-height: 50px;
-            font-size: 18px;
+            line-height: 60px;
+            font-size: 20px;
             font-weight: bold;
             text-decoration: none;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
         }
 
         .circle-link:hover {
             background-color: #2980b9;
         }
 
-        .create-post-btn {
-            position: absolute;
-            width: 200px;
-            margin: 20px auto;
-            padding: 10px;
-            text-align: center;
-            top: 0;
-            left: 50px;
-            background-color: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .create-post-btn:hover {
-            background-color: #2980b9;
-        }
-
         .back-link {
             display: block;
+            padding: 12px 20px;
+            margin: 20px 0;
             width: 200px;
-            margin: 20px auto;
-            padding: 10px;
-            text-align: center;
             background-color: #3498db;
             color: white;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
         }
 
         .back-link:hover {
             background-color: #2980b9;
         }
+
+
+        .comment-form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-top: 20px;
+        }
+
+        .comment-textarea1 {
+            width: 1500px;
+            max-width: 1500px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+            resize: vertical;
+            margin-bottom: 20px;
+            height: 20px;
+        }
+
+        .comment-textarea {
+            width: 1500px;
+            max-width: 1500px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+            resize: vertical;
+            margin-bottom: 20px;
+            height: 50px;
+        }
+
+        .submit-btn {
+            width: 40px;
+            height: 40px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            left: 1550px;
+            position: absolute;
+        }
+
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+
+
     </style>
 </head>
 <body>
@@ -141,11 +217,8 @@
 <h1>Blog Posts</h1>
 
 <div class="container">
-    <a th:if="${loggedInUser != null}"
-       th:href="@{/posts/create}"
-       class="create-post-btn">Create a new post</a>
+    <a th:if="${loggedInUser != null}" th:href="@{/posts/create}" class="create-post-btn">Create a new post</a>
 </div>
-
 
 <div th:each="post : ${posts}" class="post">
     <h2 class="post-title" th:text="${post.title}"></h2>
@@ -154,7 +227,7 @@
         <span th:text="${post.author.getFullName()}"></span> |
         <span th:text="${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span> |
         <span th:text="${#dates.format(post.publishedAt, 'yyyy-MM-dd HH:mm')}"></span> |
-        <span th:classappend="${post.published} ? 'published-yes' : 'published-no' "
+        <span th:classappend="${post.published} ? 'published-yes' : 'published-no'"
               th:text="${post.published ? 'Published' : 'Unpublished'}"></span>
     </div>
 
@@ -165,23 +238,29 @@
         <div class="comment-content" th:text="${comment.content}"></div>
     </div>
 
-    <a th:if="${loggedInUser != null}"
-       th:href="@{/posts/{id}(id=${post.id})}"
-       class="back-link">View Post</a>
+    <!-- Form để thêm bình luận -->
+    <div th:if="${loggedInUser != null}" class="comment-form">
+        <form action="#" th:action="@{/posts/createComment/{id}(id=${post.id})}" method="post">
+            <textarea name="title" class="comment-textarea1" placeholder="Enter your title" required></textarea>
+            <textarea name="content" class="comment-textarea" placeholder="Enter your comment" required></textarea>
+            <button type="submit" class="submit-btn">&#8594;</button>
+        </form>
+    </div>
+
+
+    <a th:href="@{/posts/{id}(id=${post.id})}" class="back-link">View Post</a>
 </div>
-
-
 
 <a th:if="${loggedInUser != null}"
    th:href="@{/posts/user/{id}(id=${loggedInUser.id})}"
    class="circle-link"
-   th:text="${loggedInUser.getFullName()}"></a>
+   th:text="${loggedInUser.getFirstName()}"></a>
 
 <a th:if="${loggedInUser != null}"
    th:href="@{/users/logout}"
    class="circle-link"
-   style="top: 80px;"
-   th:text="Logout"></a>
+   style="top: 90px;"
+    th:text="Logout"></a>
 
 </body>
 </html>
