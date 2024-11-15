@@ -9,20 +9,148 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background-color: #f9fafb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        h1 {
+            color: #007bff;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .navbar {
+            background-color: #343a40;
+            padding: 10px 20px;
+        }
+        .navbar a {
+            color: #fff !important;
+            padding: 8px 16px;
+        }
+        .navbar a:hover {
+            background-color: #007bff;
+            border-radius: 5px;
+        }
+        .btn-group .btn {
+            font-size: 1.1rem;
+            padding: 12px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .btn-group .btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            margin-bottom: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .card-body {
+            padding: 30px;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #007bff;
+        }
+        .card-text {
+            color: #666;
+        }
+        .btn-link {
+            font-size: 1rem;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .btn-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-<h1>HOME</h1>
-<div class="btn-group mb-4">
-    <a href="/candidates" class="btn btn-secondary">Candidates</a>
-    <a href="/companies" class="btn btn-secondary">Company</a>
-    <a href="/jobs" class="btn btn-secondary">Job</a>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/candidates">Candidates</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/companies">Companies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/jobs">Jobs</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Welcome to the Job Portal</h1>
+
+    <!-- Buttons Group -->
+    <div class="d-flex justify-content-center mb-5">
+        <div class="btn-group">
+            <a href="/candidates" class="btn btn-primary">Candidates</a>
+            <a href="/companies" class="btn btn-primary">Companies</a>
+            <a href="/jobs" class="btn btn-primary">Jobs</a>
+        </div>
+    </div>
+
+    <!-- Card Sections -->
+    <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Candidates</h5>
+                    <p class="card-text">Explore candidate profiles and manage applications.</p>
+                    <a href="/candidates/list" class="btn btn-link">View Candidates (No Paging)</a>
+                    <a href="/candidates/show-add-form" class="btn btn-link">Add New Candidate</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Companies</h5>
+                    <p class="card-text">Browse through the list of companies and job opportunities.</p>
+                    <a href="/companies/list_company" class="btn btn-link">View Companies (No Paging)</a>
+                    <a href="/companies" class="btn btn-link">Companies</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Jobs</h5>
+                    <p class="card-text">Search for job openings and apply for positions.</p>
+                    <a href="/jobs" class="btn btn-link">Jobs</a>
+                    <a href="/jobs/list_job" class="btn btn-link">Jobs (No Paging)</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<a href="/candidates">Candidates</a>
-<a href="/candidates/list">Candidates (No Paging)</a>
-<a href="/candidates/show-add-form">Add New Candidate</a>
-<a href="/companies/list_company">Companies (No Paging)</a>
-<a href="/companies">Companies</a>
-<a href="/jobs">Jobs</a>
-<a href="/jobs/list_job">Jobs (No Paging)</a>
 </body>
 </html>

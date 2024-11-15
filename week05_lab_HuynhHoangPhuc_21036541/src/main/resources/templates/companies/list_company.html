@@ -115,7 +115,6 @@
             <th>Địa chỉ</th>
             <th>View</th>
             <th>Edit</th>
-            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -130,7 +129,6 @@
                    th:href="@{companies/view_company/{id}(id=${company.id})}">View</a></td>
             <td><a class="btn btn-warning btn-sm" th:href="@{companies/show-edit-form/{id}(id=${company.id})}">Edit</a>
             </td>
-            <td><a class="btn btn-danger btn-sm" th:href="@{/delete/{id}(id=${company.id})}">Delete</a></td>
         </tr>
         </tbody>
     </table>
