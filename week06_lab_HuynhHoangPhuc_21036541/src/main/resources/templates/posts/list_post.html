@@ -48,8 +48,9 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 60%;
+            margin: 10px auto;
         }
 
         .post:hover {
@@ -101,20 +102,7 @@
             color: #7f8c8d;
         }
 
-        .published-yes {
-            color: #27ae60;
-        }
 
-        .published-no {
-            color: #e74c3c;
-        }
-
-        .date-format {
-            font-style: italic;
-            color: #bdc3c7;
-        }
-
-        /* Nút tròn góc phải */
         .circle-link {
             position: fixed;
             top: 20px;
@@ -165,8 +153,8 @@
         }
 
         .comment-textarea1 {
-            width: 1500px;
-            max-width: 1500px;
+            width: 800px;
+            max-width: 800px;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 8px;
@@ -177,8 +165,8 @@
         }
 
         .comment-textarea {
-            width: 1500px;
-            max-width: 1500px;
+            width: 800px;
+            max-width: 800px;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 8px;
@@ -221,10 +209,18 @@
 </div>
 
 <div th:each="post : ${posts}" class="post">
+    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+        <img src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Prescription01&hairColor=Brown&facialHairType=BeardLight&facialHairColor=Brown&clotheType=Hoodie&clotheColor=PastelBlue&eyeType=Wink&eyebrowType=DefaultNatural&mouthType=Smile&skinColor=Light"
+             alt="Author Avatar"
+             style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+
+
+        <span style="font-size: 1.2em; font-weight: bold;" th:text="${post.author.getFullName()}"></span>
+    </div>
+
     <h2 class="post-title" th:text="${post.title}"></h2>
 
     <div class="post-meta">
-        <span th:text="${post.author.getFullName()}"></span> |
         <span th:text="${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span> |
         <span th:text="${#dates.format(post.publishedAt, 'yyyy-MM-dd HH:mm')}"></span> |
         <span th:classappend="${post.published} ? 'published-yes' : 'published-no'"
@@ -234,8 +230,8 @@
     <div class="post-summary" th:text="${post.summary}"></div>
     <div class="post-content" th:text="${post.content}"></div>
 
-    <div th:each="comment : ${post.comments}" class="comment">
-        <div class="comment-content" th:text="${comment.content}"></div>
+    <div th:if="${!post.comments.isEmpty()}" class="comment">
+        <div class="comment-content" th:text="${post.comments[0].content}"></div>
     </div>
 
     <!-- Form để thêm bình luận -->

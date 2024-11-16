@@ -151,10 +151,4 @@ public class PostController {
         postService.saveComment(comment);
         return "posts/list_post";
     }
-
-
-
-
-
-
 }
