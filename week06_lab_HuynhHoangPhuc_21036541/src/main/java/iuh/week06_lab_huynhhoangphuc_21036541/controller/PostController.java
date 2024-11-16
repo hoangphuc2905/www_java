@@ -8,8 +8,6 @@ import iuh.week06_lab_huynhhoangphuc_21036541.repositories.UserRepository;
 import iuh.week06_lab_huynhhoangphuc_21036541.service.PostServices;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -134,13 +132,18 @@ public class PostController {
     }
 
     @PostMapping("/createComment/{id}")
-    public String createComment(@PathVariable Long id, @RequestParam("content") String content, @RequestParam("title") String title, HttpSession session) {
+    public String createComment(@PathVariable Long id,
+                                @RequestParam("title") String title,
+                                @RequestParam("content") String content,
+                                HttpSession session) {
         Post post = postService.getPostById(id).orElse(null);
         if (post == null) {
             return "redirect:/posts";
         }
 
         PostComment comment = new PostComment();
+        User loggedInUser = getLoggedInUser(session);
+        comment.setAuthor(loggedInUser);
         comment.setPost(post);
         comment.setParent(null);
         comment.setPublished(true);

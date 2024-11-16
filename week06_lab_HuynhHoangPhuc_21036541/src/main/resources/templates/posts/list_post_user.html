@@ -134,6 +134,7 @@
         <div class="post-content" th:text="${post.content}"></div>
 
         <div th:each="comment : ${post.comments}" class="comment">
+            <p th:text="${comment.author.getFullName()}"></p>
             <p th:text="${comment.content}"></p>
         </div>
 

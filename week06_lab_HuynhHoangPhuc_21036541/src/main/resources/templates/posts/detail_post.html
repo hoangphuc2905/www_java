@@ -97,12 +97,10 @@
             color: white;
         }
 
-        .published-yes {
-            color: green;
-        }
-
-        .published-no {
-            color: red;
+        .comment-author {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -122,6 +120,7 @@
 
 <h2>Comments</h2>
 <div th:each="comment : ${post.comments}" class="comment">
+    <p class="comment-author" th:text="${comment.author.getFullName()}">Comment Author</p>
     <div class="comment-content" th:text="${comment.content}">Comment Content</div>
 </div>
 

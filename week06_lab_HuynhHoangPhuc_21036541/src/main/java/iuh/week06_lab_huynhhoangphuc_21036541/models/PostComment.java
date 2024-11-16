@@ -23,11 +23,11 @@ public class PostComment {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "postId", nullable = false)
+    @JoinColumn(name = "post_Id", nullable = false)
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parentId")
+    @JoinColumn(name = "parent_Id")
     private PostComment parent;
 
     @Size(max = 100)
@@ -41,16 +41,23 @@ public class PostComment {
     private Boolean published = false;
 
     @NotNull
-    @Column(name = "createdAt", nullable = false)
+    @Column(name = "created_At", nullable = false)
     private Instant createdAt;
 
-    @Column(name = "publishedAt")
+    @Column(name = "published_At")
     private Instant publishedAt;
 
     @Lob
     @Column(name = "content")
     private String content;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ColumnDefault("0")
+    @JoinColumn(name = "author_Id", nullable = false)
+    private User author;
+
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<PostComment> postComments = new LinkedHashSet<>();
+
 }

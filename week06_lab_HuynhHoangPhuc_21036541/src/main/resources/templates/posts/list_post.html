@@ -189,7 +189,7 @@
             line-height: 40px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            left: 1550px;
+            left: 850px;
             position: absolute;
         }
 
@@ -231,12 +231,21 @@
     <div class="post-content" th:text="${post.content}"></div>
 
     <div th:if="${!post.comments.isEmpty()}" class="comment">
-        <div class="comment-content" th:text="${post.comments[0].content}"></div>
+        <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px;">
+            <img src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Prescription01&hairColor=Brown&facialHairType=BeardLight&facialHairColor=Brown&clotheType=Hoodie&clotheColor=PastelBlue&eyeType=Wink&eyebrowType=DefaultNatural&mouthType=Smile&skinColor=Light"
+                 alt="Author Avatar"
+                 style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+            <div style="flex-grow: 1;">
+                <div class="comment-author" th:text="${post.comments[0].author.getFullName()}"></div>
+                <div class="comment-content" th:text="${post.comments[0].content}"></div>
+            </div>
+        </div>
     </div>
 
     <!-- Form để thêm bình luận -->
-    <div th:if="${loggedInUser != null}" class="comment-form">
+    <div class="comment-form">
         <form action="#" th:action="@{/posts/createComment/{id}(id=${post.id})}" method="post">
+
             <textarea name="title" class="comment-textarea1" placeholder="Enter your title" required></textarea>
             <textarea name="content" class="comment-textarea" placeholder="Enter your comment" required></textarea>
             <button type="submit" class="submit-btn">&#8594;</button>

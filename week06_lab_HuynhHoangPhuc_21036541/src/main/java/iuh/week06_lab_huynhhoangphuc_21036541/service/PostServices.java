@@ -3,7 +3,6 @@ package iuh.week06_lab_huynhhoangphuc_21036541.service;
 
 import iuh.week06_lab_huynhhoangphuc_21036541.models.Post;
 import iuh.week06_lab_huynhhoangphuc_21036541.models.PostComment;
-import iuh.week06_lab_huynhhoangphuc_21036541.models.User;
 import iuh.week06_lab_huynhhoangphuc_21036541.repositories.PostCommentRepository;
 import iuh.week06_lab_huynhhoangphuc_21036541.repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
