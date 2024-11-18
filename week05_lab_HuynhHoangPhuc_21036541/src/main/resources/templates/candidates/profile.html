@@ -10,7 +10,7 @@
 <div class="container mt-5">
     <h1 class="mb-4">Candidate Profile</h1>
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-primary text-white">
             <h2 th:text="${candidate.fullName}"></h2>
         </div>
         <div class="card-body">
@@ -19,21 +19,19 @@
             <p><strong>Address:</strong> <span th:text="${candidate.address}"></span></p>
             <p><strong>Description:</strong> <span th:text="${candidate.dob}"></span></p>
             <p><strong>Skills:</strong></p>
-            <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
-                <div th:each="skill : ${candidate.candidateSkills}" class="col">
-                    <div class="card h-100 border-primary">
-                        <div class="card-body">
-                            <h5 class="card-title text-primary" th:text="${skill.skill.skillName}"></h5>
-                            <p class="card-text" th:text="${skill.skill.skillDescription}"></p>
-                            <span class="badge bg-info text-dark" th:text="'Type: ' + ${skill.skill.type}"></span>
-                        </div>
+            <ul class="list-group mt-3">
+                <li th:each="skill : ${candidate.candidateSkills}" class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span th:text="${skill.skill.skillName}"></span>
+                        <span class="badge bg-secondary" th:text="${skill.skill.type}"></span>
                     </div>
-                </div>
-            </div>
+                    <small th:text="${skill.skill.skillDescription}" class="text-muted"></small>
+                </li>
+            </ul>
         </div>
-            <div class="card-footer">
+        <div class="card-footer">
             <a href="/candidates" class="btn btn-primary">Back to Candidates</a>
-        </div>
+            <a class="btn btn-warning btn-sm" th:href="@{/candidates/show-edit-form/{id}(id=${candidate.id})}">Edit</a>
     </div>
 </div>
 </body>
