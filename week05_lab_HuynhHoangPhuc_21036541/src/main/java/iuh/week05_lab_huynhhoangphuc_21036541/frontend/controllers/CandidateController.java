@@ -141,4 +141,24 @@ public class CandidateController {
     }
 
 
+    // detail candidate
+    @GetMapping("/profile/{id}")
+    public ModelAndView viewCandidate(@PathVariable("id") long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        Optional<Candidate> opt = candidateRepository.findById(id);
+        if (opt.isPresent()) {
+            Candidate candidate = opt.get();
+            modelAndView.addObject("candidate", candidate);
+            modelAndView.addObject("countries", CountryCode.values());
+
+            modelAndView.setViewName("candidates/profile");
+        } else {
+            modelAndView.setViewName("redirect:/candidates?error=candidateNotFound");
+        }
+        return modelAndView;
+    }
+
+
+
+
 }
