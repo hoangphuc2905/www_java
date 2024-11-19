@@ -2,6 +2,7 @@ package iuh.week05_lab_huynhhoangphuc_21036541.frontend.controllers;
 
 import com.neovisionaries.i18n.CountryCode;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Address;
+import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Candidate;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Company;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.repositories.AddressRepository;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.repositories.CompanyRepository;
@@ -133,6 +134,20 @@ public class CompanyController {
             modelAndView.setViewName("redirect:/jobs?error=companyNotFound");
         }
         return modelAndView;
+    }
+
+    @GetMapping("/search")
+    public String searchCompanies(@RequestParam String keyword,
+                                   @RequestParam(defaultValue = "0") int page,
+                                   @RequestParam(defaultValue = "10") int size,
+                                   Model model) {
+        Page<Company> companyPage = companyServices.searchCompanies(keyword, page, size);
+        model.addAttribute("companyPage", companyPage);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("pageNumbers", IntStream.rangeClosed(1, companyPage.getTotalPages())
+                .boxed()
+                .collect(Collectors.toList()));
+        return "companies/list_company";
     }
 
 

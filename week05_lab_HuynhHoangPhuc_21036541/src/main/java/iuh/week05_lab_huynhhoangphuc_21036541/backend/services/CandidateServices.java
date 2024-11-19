@@ -1,5 +1,6 @@
 package iuh.week05_lab_huynhhoangphuc_21036541.backend.services;
 
+import iuh.week05_lab_huynhhoangphuc_21036541.backend.enums.SkillLevel;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Candidate;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Job;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.JobSkill;
@@ -70,5 +71,16 @@ public class CandidateServices {
                 .collect(Collectors.toList());
     }
 
+    //searchCandidates
+    public Page<Candidate> searchCandidates(String keyword, int page, int size) {
+        SkillLevel skillLevel = null;
+        try {
+            skillLevel = SkillLevel.valueOf(keyword.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            // Ignore, keyword is not a valid SkillLevel
+        }
+        Pageable pageable = PageRequest.of(page, size);
+        return candidateRepository.findByKeyword(keyword, skillLevel, pageable);
+    }
 
 }

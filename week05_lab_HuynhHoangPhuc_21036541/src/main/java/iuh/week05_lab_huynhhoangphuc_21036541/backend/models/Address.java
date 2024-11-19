@@ -61,8 +61,11 @@ public class Address {
                 ", country=" + country +
                 ", number='" + number + '\'' +
                 ", zipcode='" + zipcode + '\'' +
-                // Tránh bao gồm candidate hoặc company để ngăn chặn tham chiếu vòng lặp
                 '}';
+    }
+
+    public String getFullAddress() {
+        return street + ", " + city + ", " + country.getName() + ", " + number + ", " + zipcode;
     }
 
 

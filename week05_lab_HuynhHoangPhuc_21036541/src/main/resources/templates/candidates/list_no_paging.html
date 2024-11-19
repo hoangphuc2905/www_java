@@ -52,7 +52,7 @@
                     <td th:text="${candidate.id}"></td>
                     <td th:text="${candidate.fullName}"></td>
                     <td th:text="${candidate.dob}"></td>
-                    <td th:text="${candidate.address}"></td>
+                    <td th:text="${candidate.address.getFullAddress}"></td>
                     <td th:text="${candidate.phone}"></td>
                     <td th:text="${candidate.email}"></td>
                     <td><a class="btn btn-warning btn-sm"

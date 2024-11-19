@@ -1,5 +1,6 @@
 package iuh.week05_lab_huynhhoangphuc_21036541.backend.services;
 
+import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Candidate;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Company;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,4 +41,11 @@ public class CompanyServices {
 
         return companyPage;
     }
+
+    //searchCandidates
+    public Page<Company> searchCompanies(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return companyRepository.findByKeyword(keyword, pageable);
+    }
+
 }

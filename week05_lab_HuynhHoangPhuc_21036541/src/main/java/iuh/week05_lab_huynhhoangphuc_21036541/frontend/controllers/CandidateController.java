@@ -158,7 +158,16 @@ public class CandidateController {
         return modelAndView;
     }
 
-
-
+    @GetMapping("/search")
+    public String searchCandidates(@RequestParam("keyword") String keyword,
+                                   @RequestParam(defaultValue = "0") int page,
+                                   @RequestParam(defaultValue = "10") int size,
+                                   Model model) {
+        Page<Candidate> candidatePage = candidateServices.searchCandidates(keyword, page, size);
+        model.addAttribute("candidatePage", candidatePage);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("pageNumbers", IntStream.rangeClosed(1, candidatePage.getTotalPages()).boxed().collect(Collectors.toList()));
+        return "candidates/list";
+    }
 
 }
