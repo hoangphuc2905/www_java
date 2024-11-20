@@ -135,8 +135,8 @@
             <td th:text="${company.webUrl}"></td>
             <td th:text="${company.address.getFullAddress}"></td>
             <td><a class="btn btn-warning btn-sm"
-                   th:href="@{companies/view_company/{id}(id=${company.id})}">View</a></td>
-            <td><a class="btn btn-warning btn-sm" th:href="@{companies/show-edit-form/{id}(id=${company.id})}">Edit</a>
+                   th:href="@{/companies/view_company/{id}(id=${company.id})}">View</a></td>
+            <td><a class="btn btn-warning btn-sm" th:href="@{/companies/show-edit-form/{id}(id=${company.id})}">Edit</a>
             </td>
         </tr>
         </tbody>

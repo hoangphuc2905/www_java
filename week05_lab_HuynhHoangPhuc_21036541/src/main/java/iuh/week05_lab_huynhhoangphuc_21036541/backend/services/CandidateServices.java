@@ -2,9 +2,11 @@ package iuh.week05_lab_huynhhoangphuc_21036541.backend.services;
 
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.enums.SkillLevel;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Candidate;
+import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Company;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Job;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.JobSkill;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.repositories.CandidateRepository;
+import iuh.week05_lab_huynhhoangphuc_21036541.backend.repositories.CompanyRepository;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.repositories.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +26,8 @@ public class CandidateServices {
 
     @Autowired
     private JobRepository jobRepository;
+    @Autowired
+    private CompanyRepository companyRepository;
 
     public Page<Candidate> findAll(int pageNo, int pageSize, String sortBy, String sortDirection) {
         Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
@@ -83,4 +88,23 @@ public class CandidateServices {
         return candidateRepository.findByKeyword(keyword, skillLevel, pageable);
     }
 
+    // suggestJobsForCandidate
+//    @Query(" select j from Job j inner join j.jobSkills jobSkills " +
+//            "where jobSkills.skillLevel <= ?1 and jobSkills.skill.skillName = ?2")
+//    List<Job> findJobsBySkills(SkillLevel skillLevel, String skillName);
+
+    public List<Job> suggestJobsForCandidate(Long candidateId) {
+        Optional<Candidate> candidate = candidateRepository.findById(candidateId);
+        return candidate.get()
+                .getCandidateSkills().stream()
+                .map(
+                        candidateSkill ->
+                                jobRepository.findJobsBySkills(
+                                        candidateSkill.getSkillLevel(), candidateSkill.getSkill().getSkillName()
+                                )
+                )
+                .flatMap(List::stream)
+                .toList();
+
+    }
 }

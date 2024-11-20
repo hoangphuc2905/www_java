@@ -2,6 +2,7 @@ package iuh.week05_lab_huynhhoangphuc_21036541.backend.services;
 
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Candidate;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Company;
+import iuh.week05_lab_huynhhoangphuc_21036541.backend.repositories.CandidateRepository;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -10,11 +11,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyServices {
     @Autowired
     private CompanyRepository companyRepository;
+    @Autowired
+    private CandidateRepository candidateRepository;
 
     public Page<Company> findAll(int pageNo, int pageSize, String sortBy, String sortDirection) {
         Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
@@ -47,5 +51,8 @@ public class CompanyServices {
         Pageable pageable = PageRequest.of(page, size);
         return companyRepository.findByKeyword(keyword, pageable);
     }
+
+
+
 
 }

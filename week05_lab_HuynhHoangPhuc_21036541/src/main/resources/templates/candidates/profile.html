@@ -5,21 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Candidate Profile</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            font-family: 'Roboto', sans-serif;
+            color: #343a40;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+        }
+        header .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            border-radius: 15px 15px 0 0;
+        }
+        .btn-primary, .btn-warning, .btn-info {
+            border: none;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+        .btn-info:hover {
+            background-color: #138496;
+        }
+        ul.list-group {
+            margin-top: 15px;
+        }
+        .list-group-item {
+            border: none;
+            padding: 10px 0;
+        }
+        .list-group-item small {
+            display: block;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
+<header>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand text-white" href="#">JobFinder</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="/candidates">Candidates</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="/jobs">Jobs</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
 <div class="container mt-5">
-    <h1 class="mb-4">Candidate Profile</h1>
+    <h1 class="text-center mb-4">Candidate Profile</h1>
     <div class="card">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header bg-primary text-white text-center">
             <h2 th:text="${candidate.fullName}"></h2>
         </div>
         <div class="card-body">
-            <p><strong>Email:</strong> <span th:text="${candidate.email}"></span></p>
-            <p><strong>Phone:</strong> <span th:text="${candidate.phone}"></span></p>
-            <p><strong>Address:</strong> <span th:text="${candidate.address}"></span></p>
-            <p><strong>Description:</strong> <span th:text="${candidate.dob}"></span></p>
-            <p><strong>Skills:</strong></p>
-            <ul class="list-group mt-3">
+            <p th:if="${candidate.email}">
+                <strong>Email:</strong> <span th:text="${candidate.email}"></span>
+            </p>
+            <p th:if="${candidate.phone}">
+                <strong>Phone:</strong> <span th:text="${candidate.phone}"></span>
+            </p>
+            <p th:if="${candidate.address}">
+                <strong>Address:</strong> <span th:text="${candidate.address.fullAddress}"></span>
+            </p>
+            <p th:if="${candidate.dob}">
+                <strong>Date of Birth:</strong> <span th:text="${candidate.dob}"></span>
+            </p>
+            <p th:if="${candidate.candidateSkills}">
+                <strong>Skills:</strong>
+            </p>
+            <ul class="list-group" th:if="${candidate.candidateSkills}">
                 <li th:each="skill : ${candidate.candidateSkills}" class="list-group-item">
                     <div class="d-flex justify-content-between align-items-center">
                         <span th:text="${skill.skill.skillName}"></span>
@@ -29,11 +110,25 @@
                 </li>
             </ul>
         </div>
-        <div class="card-footer">
-            <a href="/candidates" class="btn btn-primary">Back to Candidates</a>
-            <a class="btn btn-warning btn-sm" th:href="@{/candidates/show-edit-form/{id}(id=${candidate.id})}">Edit</a>
+        <div class="card-footer text-end">
+            <a href="/candidates" class="btn btn-primary">
+                <i class="fa-solid fa-arrow-left"></i> Back to Candidates
+            </a>
+            <a class="btn btn-warning btn-sm" th:href="@{/candidates/show-edit-form/{id}(id=${candidate.id})}">
+                <i class="fa-solid fa-edit"></i> Edit
+            </a>
+            <a class="btn btn-info btn-sm" th:href="@{/candidates/suggest-jobs/{id}(id=${candidate.id})}">
+                <i class="fa-solid fa-lightbulb"></i> Suggestions
+            </a>
+        </div>
     </div>
 </div>
-</div>
+
+<footer>
+    <p>&copy; 2024 JobFinder. All Rights Reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
 </body>
 </html>

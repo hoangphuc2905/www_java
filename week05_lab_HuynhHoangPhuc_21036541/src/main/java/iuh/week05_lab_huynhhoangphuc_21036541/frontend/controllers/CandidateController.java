@@ -3,6 +3,8 @@ package iuh.week05_lab_huynhhoangphuc_21036541.frontend.controllers;
 import com.neovisionaries.i18n.CountryCode;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Address;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Candidate;
+import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Company;
+import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Job;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.repositories.AddressRepository;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.repositories.CandidateRepository;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.services.CandidateServices;
@@ -168,6 +170,14 @@ public class CandidateController {
         model.addAttribute("keyword", keyword);
         model.addAttribute("pageNumbers", IntStream.rangeClosed(1, candidatePage.getTotalPages()).boxed().collect(Collectors.toList()));
         return "candidates/list";
+    }
+
+
+    @GetMapping("/suggest-jobs/{id}")
+    public String suggestJobs(@PathVariable("id") Long candidateId, Model model) {
+        List<Job> suggestedJobs = candidateServices.suggestJobsForCandidate(candidateId);
+        model.addAttribute("suggestedJobs", suggestedJobs);
+        return "candidates/suggested_jobs";
     }
 
 }

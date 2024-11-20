@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suggested Jobs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            font-family: 'Roboto', sans-serif;
+            color: #343a40;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+        }
+        header .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .card-title {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        .list-group-item {
+            border: none;
+            padding: 5px 0;
+            font-size: 0.9rem;
+        }
+        .apply-now-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .apply-now-btn i {
+            margin-right: 5px;
+        }
+        .btn-info {
+            background-color: #17a2b8;
+            border: none;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .btn-info:hover {
+            background-color: #138496;
+        }
+
+        .apply-now-btn i, .btn-info i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand text-white" href="#">JobFinder</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="/candidates">Candidates</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="/jobs">Jobs</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Suggested Jobs for You</h1>
+    <div class="row">
+        <div th:each="job : ${suggestedJobs}" class="col-md-6 col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${job.jobName}">Software Engineer</h5>
+                    <p class="card-text text-muted" th:text="${job.jobDesc}">Design and develop high-quality software solutions...</p>
+                    <p><strong>Company:</strong> <span th:text="${job.company.compName}">TechCorp</span></p>
+                    <p><strong>Skills Required:</strong></p>
+                    <ul class="list-group list-group-flush">
+                        <li th:each="skill : ${job.jobSkills}"
+                            class="list-group-item"
+                            th:text="${skill.skillLevel}">Java, Python</li>
+                    </ul>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a th:href="@{/companies/view_company/{id}(id=${job.company.id})}"
+                       class="btn btn-info">
+                        <i class="fa-solid fa-building"></i> View Company
+                    </a>
+                    <a href="#" class="btn btn-primary apply-now-btn">
+                        <i class="fa-solid fa-paper-plane"></i> Apply Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="text-center mt-4">
+        <a href="/candidates" class="btn btn-secondary">
+            <i class="fa-solid fa-arrow-left"></i> Back to Candidates
+        </a>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 JobFinder. All Rights Reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+</body>
+</html>
