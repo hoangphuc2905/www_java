@@ -18,6 +18,21 @@
             margin-top: 50px;
         }
 
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
         h1 {
             font-size: 2rem;
             color: #333;
@@ -94,12 +109,8 @@
     </style>
 </head>
 <body>
+<header th:replace="fragment/header :: header"></header>
 <div class="container">
-    <div class="btn-group mb-4">
-        <a href="/candidates" class="btn btn-secondary">Candidates</a>
-        <a href="/companies" class="btn btn-secondary">Company</a>
-        <a href="/jobs" class="btn btn-secondary">Job</a>
-    </div>
     <h1 class="text-center">List of Jobs</h1>
     <a class="btn btn-primary" href="/">Back to Home</a>
     <br/>

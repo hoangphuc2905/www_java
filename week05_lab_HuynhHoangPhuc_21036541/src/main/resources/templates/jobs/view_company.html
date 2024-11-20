@@ -13,15 +13,19 @@
         body {
             background-color: #f8f9fa;
         }
-
-        .container {
-            margin-top: 50px;
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
         }
 
-        h1 {
-            font-size: 2rem;
-            color: #333;
-            margin-bottom: 20px;
+        header .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
         }
 
         .card {
@@ -58,17 +62,19 @@
             background-color: #007bff;
             color: #ffffff;
         }
+        .title {
+            font-weight: bold;
+            color: #343a40;
+            text-align: center;
+            padding: 100px 0 20px;
+        }
     </style>
 
 </head>
 <body>
+<header th:replace="fragment/header :: header"></header>
 <div class="container">
-    <div class="btn-group mb-4">
-        <a href="/candidates" class="btn btn-secondary">Candidates</a>
-        <a href="/companies" class="btn btn-secondary">Company</a>
-        <a href="/jobs" class="btn btn-secondary">Job</a>
-    </div>
-    <h1 class="text-center">Company Details</h1>
+    <h1 class="title">Company Details</h1>
     <a class="btn btn-primary mb-4" href="/jobs">Back to Jobs</a>
     <div class="card">
         <div class="card-header">

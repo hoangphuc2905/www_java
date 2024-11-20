@@ -20,7 +20,7 @@
         header {
             background-color: #007bff;
             color: white;
-            padding: 10px 0;
+            padding: 15px 0;
             position: fixed;
             width: 100%;
             top: 0;
@@ -28,7 +28,7 @@
         }
 
         header .navbar-brand {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: bold;
         }
 
@@ -40,9 +40,6 @@
             margin-top: 30px;
         }
 
-        .container {
-            margin-top: 50px;
-        }
 
         h1 {
             font-size: 2rem;
@@ -70,6 +67,12 @@
         .btn {
             font-size: 0.875rem;
             padding: 5px 10px;
+        }
+        .title {
+            font-weight: bold;
+            color: #343a40;
+            text-align: center;
+            padding: 20px 0;
         }
     </style>
 
@@ -128,23 +131,9 @@
     </script>
 </head>
 <body>
-<header>
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand text-white" href="/">JobFinder</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link text-white" href="/candidates">Candidates</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="/companies">Companies</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="/jobs">Jobs</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-</header>
-
+<header th:replace="fragment/header :: header"></header>
 <div class="container mt-5">
-    <h1 class="text-center">Add New Job</h1>
+    <h1 class="title">Add New Job</h1>
     <a class="btn btn-primary mb-4" th:href="@{/companies/view_company/{companyId}(companyId=${companyId})}">Back to Company</a>
 
     <div class="card">
