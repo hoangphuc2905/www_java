@@ -12,6 +12,32 @@
     <style>
         body {
             background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+            color: #343a40;
+            padding-top: 60px;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .navbar-brand {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
         }
 
         .container {
@@ -91,17 +117,26 @@
         div.inline a.active:hover {
             background-color: #FFC107;
         }
-
-
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="btn-group mb-4">
-        <a href="/candidates" class="btn btn-secondary">Candidates</a>
-        <a href="/companies" class="btn btn-secondary">Company</a>
-        <a href="/jobs" class="btn btn-secondary">Job</a>
+<header>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand text-white" href="/">JobFinder</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="/candidates">Candidates</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="/companies">Companies</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="/jobs">Jobs</a></li>
+                </ul>
+            </div>
+        </nav>
     </div>
+</header>
+
+<div class="container mt-5">
+
     <h1 class="text-center">List of Jobs</h1>
     <a class="btn btn-primary" href="/">Back to Home</a>
     <form th:action="@{/jobs}" method="get" class="mb-4">
@@ -156,5 +191,9 @@
         <a class="btn btn-add" href="/jobs/show-add-form">Add a New Job</a>
     </div>
 </div>
+
+<footer>
+    <p>&copy; 2024 JobFinder. All Rights Reserved.</p>
+</footer>
 </body>
 </html>

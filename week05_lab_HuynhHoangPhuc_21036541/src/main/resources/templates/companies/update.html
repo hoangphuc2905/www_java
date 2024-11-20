@@ -9,6 +9,36 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
     <style>
+        body {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            font-family: 'Roboto', sans-serif;
+            color: #343a40;
+            padding-top: 70px;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+
         .form-container {
             max-width: 800px;
             margin: 50px auto;
@@ -25,13 +55,23 @@
     </style>
 </head>
 <body>
-<div class="container">
+<header>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand text-white" href="/">JobFinder</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link text-white" href="/candidates">Candidates</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="/companies">Companies</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="/jobs">Jobs</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="container mt-5">
     <div class="form-container">
-        <div class="btn-group mb-4">
-            <a href="/candidates" class="btn btn-secondary">Candidates</a>
-            <a href="/companies" class="btn btn-secondary">Company</a>
-            <a href="/jobs" class="btn btn-secondary">Job</a>
-        </div>
         <h1 class="form-title">Update Company</h1>
         <form th:action="@{/companies/update}" th:object="${company}" method="post">
             <input type="hidden" th:field="*{id}"/>
@@ -94,5 +134,9 @@
         </form>
     </div>
 </div>
+
+<footer>
+    <p>&copy; 2024 JobFinder. All Rights Reserved.</p>
+</footer>
 </body>
 </html>
