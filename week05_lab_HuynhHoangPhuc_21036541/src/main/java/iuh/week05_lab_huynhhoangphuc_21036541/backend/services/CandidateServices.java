@@ -1,22 +1,18 @@
 package iuh.week05_lab_huynhhoangphuc_21036541.backend.services;
 
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.enums.SkillLevel;
-import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Candidate;
-import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Company;
-import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.Job;
-import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.JobSkill;
+import iuh.week05_lab_huynhhoangphuc_21036541.backend.models.*;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.repositories.CandidateRepository;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.repositories.CompanyRepository;
 import iuh.week05_lab_huynhhoangphuc_21036541.backend.repositories.JobRepository;
+import iuh.week05_lab_huynhhoangphuc_21036541.backend.repositories.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +24,9 @@ public class CandidateServices {
     private JobRepository jobRepository;
     @Autowired
     private CompanyRepository companyRepository;
+
+    @Autowired
+    private SkillRepository skillRepository;
 
     public Page<Candidate> findAll(int pageNo, int pageSize, String sortBy, String sortDirection) {
         Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
@@ -107,4 +106,18 @@ public class CandidateServices {
                 .toList();
 
     }
+
+    public List<Map<String, Object>> suggestTopSkills(Long candidateId) {
+        List<Object[]> results = jobRepository.findTopSkillsWithJobCount(candidateId, PageRequest.of(0, 10));
+
+        return results.stream().map(result -> {
+            Skill skill = (Skill) result[0];
+            Long jobCount = (Long) result[1];
+            Map<String, Object> skillWithJobCount = new HashMap<>();
+            skillWithJobCount.put("skill", skill);
+            skillWithJobCount.put("jobCount", jobCount);
+            return skillWithJobCount;
+        }).collect(Collectors.toList());
+    }
+
 }

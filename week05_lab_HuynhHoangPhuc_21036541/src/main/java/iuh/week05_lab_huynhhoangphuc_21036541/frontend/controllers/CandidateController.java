@@ -136,12 +136,13 @@ public class CandidateController {
 
     @GetMapping("/suggest-skill-to-learn/{id}")
     public String suggestSkillToLearn(@PathVariable Long id, Model model) {
-        Candidate candidate = candidateRepository.findById(id).get();
+        Candidate candidate = candidateRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid candidate Id:" + id));
+
         model.addAttribute("candidate", candidate);
-        model.addAttribute("suggestedSkills", candidateServices.suggestSkillToLearn(id));
+        model.addAttribute("suggestedSkills", candidateServices.suggestTopSkills(id));
         return "candidates/suggestedskill";
     }
-
 
     // detail candidate
     @GetMapping("/profile/{id}")

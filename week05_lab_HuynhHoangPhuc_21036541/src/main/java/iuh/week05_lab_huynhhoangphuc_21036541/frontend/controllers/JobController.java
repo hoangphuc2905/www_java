@@ -223,9 +223,16 @@ public class JobController {
         mailSender.send(message);
     }
 
-
     @GetMapping("/apply/{id}")
     public String applyJob(@PathVariable("id") long id) {
         return "redirect:/jobs?success=applySuccess";
+    }
+
+    @GetMapping("/skill/{id}")
+    public ModelAndView viewJobsBySkill(@PathVariable("id") long skillId) {
+        ModelAndView mav = new ModelAndView("jobs/view_job_by_skill");
+        List<Job> jobs = jobRepository.findJobsBySkillName(skillId);
+        mav.addObject("jobs", jobs);
+        return mav;
     }
 }
