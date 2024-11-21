@@ -42,12 +42,10 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private Set<Job> jobs = new LinkedHashSet<>();
 
-
     @Override
     public String toString() {
         return "Company{" +
                 "compName='" + compName + '\'' +
-                // Tránh gọi lại toString() của Job ở đây
                 '}';
     }
 }

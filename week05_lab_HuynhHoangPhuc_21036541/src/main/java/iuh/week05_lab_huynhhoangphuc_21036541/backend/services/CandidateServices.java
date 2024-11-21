@@ -63,7 +63,6 @@ public class CandidateServices {
                 .collect(Collectors.toList());
     }
 
-    //suggestSkillToLearn
     public List<JobSkill> suggestSkillToLearn(Long candidateId) {
         Candidate candidate = candidateRepository.findById(candidateId)
                 .orElseThrow(() -> new RuntimeException("Candidate not found"));
@@ -75,7 +74,6 @@ public class CandidateServices {
                 .collect(Collectors.toList());
     }
 
-    //searchCandidates
     public Page<Candidate> searchCandidates(String keyword, int page, int size) {
         SkillLevel skillLevel = null;
         try {
@@ -86,11 +84,6 @@ public class CandidateServices {
         Pageable pageable = PageRequest.of(page, size);
         return candidateRepository.findByKeyword(keyword, skillLevel, pageable);
     }
-
-    // suggestJobsForCandidate
-//    @Query(" select j from Job j inner join j.jobSkills jobSkills " +
-//            "where jobSkills.skillLevel <= ?1 and jobSkills.skill.skillName = ?2")
-//    List<Job> findJobsBySkills(SkillLevel skillLevel, String skillName);
 
     public List<Job> suggestJobsForCandidate(Long candidateId) {
         Optional<Candidate> candidate = candidateRepository.findById(candidateId);
@@ -104,7 +97,6 @@ public class CandidateServices {
                 )
                 .flatMap(List::stream)
                 .toList();
-
     }
 
     public List<Map<String, Object>> suggestTopSkills(Long candidateId) {

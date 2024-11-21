@@ -49,7 +49,6 @@ public class Candidate {
     public Candidate() {
     }
 
-    // Candidate.java
     @Override
     public String toString() {
         return "Candidate{" +

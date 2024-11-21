@@ -46,7 +46,6 @@ public class CompanyServices {
         return companyPage;
     }
 
-    //searchCandidates
     public Page<Company> searchCompanies(String keyword, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return companyRepository.findByKeyword(keyword, pageable);

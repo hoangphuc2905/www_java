@@ -37,7 +37,6 @@ public class Job {
         return "Job{" +
                 "jobName='" + jobName + '\'' +
                 ", jobDesc='" + jobDesc + '\'' +
-                // Chỉ thêm thông tin cần thiết, tránh gọi lại phương thức toString của Company hoặc Job
                 '}';
     }
 

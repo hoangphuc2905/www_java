@@ -144,7 +144,6 @@ public class CandidateController {
         return "candidates/suggestedskill";
     }
 
-    // detail candidate
     @GetMapping("/profile/{id}")
     public ModelAndView viewCandidate(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView();

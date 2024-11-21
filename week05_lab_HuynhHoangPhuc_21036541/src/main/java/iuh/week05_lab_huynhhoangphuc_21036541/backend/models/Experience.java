@@ -26,7 +26,6 @@ public class Experience {
     @Column(name = "work_desc",nullable = false, length = 400)
     private String workDescription;
 
-    //=============================RELATIONSHIPS====================
     @ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "can_id")
     private Candidate candidate;
