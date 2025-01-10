@@ -16,7 +16,7 @@ public class DBConfig {
       dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
       dataSource.setUrl("jdbc:mariadb://localhost:3306/lab05?createDatabaseIfNotExist=true");
       dataSource.setUsername("root");
-      dataSource.setPassword("anquocviet_203");
+      dataSource.setPassword("root");
       return dataSource;
    }
 }
